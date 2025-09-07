@@ -13,6 +13,29 @@
  *     }
  * }
  */
+
+//  recurrsive 
+// class Solution {
+//     public void inorder(TreeNode root, List<Integer> l){
+//         if(root == null) return;
+
+//         inorder(root.left, l);
+//         l.add(root.val);
+//         inorder(root.right, l);
+//     }
+//     public List<Integer> inorderTraversal(TreeNode root) {
+//         List<Integer> l = new ArrayList<>();
+//         inorder(root, l);
+//         return l;
+//     }
+
+    
+// }
+
+
+
+// iterative 
+
 class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> l = new ArrayList<>();
