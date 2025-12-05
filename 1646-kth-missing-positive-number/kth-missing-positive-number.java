@@ -1,9 +1,7 @@
 class Solution {
 
     int bs(int[] nums, int l, int h, int t){
-        // if(l == nums.length) return nums[h] + t - (nums[h] - h - 1);
-        if(l == nums.length) return t + h + 1;
-        
+                
         // if(l > h) return nums[l] + t - (nums[l] - l - 1); 
         if(l > h) return t + l;
 
