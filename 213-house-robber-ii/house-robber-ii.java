@@ -1,15 +1,33 @@
 class Solution {
+// memoization
+    // int f(int n, int[] nums, int[] dp){
+    //     if(n == 0) return nums[0];
+    //     if(n == -1) return 0;
+
+    //     int tk, ntk;
+    //     if(dp[n] != -1) return dp[n];
+    //     tk = nums[n] + f(n-2, nums, dp);
+    //     ntk = f(n-1, nums, dp);
+
+    //     return dp[n] = Math.max(tk, ntk);
+    // }
+
 
     int f(int n, int[] nums, int[] dp){
-        if(n == 0) return nums[0];
-        if(n == -1) return 0;
-
+        n = n+1 ;// becoz we want no of element here not last idx
         int tk, ntk;
-        if(dp[n] != -1) return dp[n];
-        tk = nums[n] + f(n-2, nums, dp);
-        ntk = f(n-1, nums, dp);
+        if(n == 1) return nums[0];
+        dp[0] = nums[0];
+        dp[1] = Math.max(nums[0], nums[1]);
 
-        return dp[n] = Math.max(tk, ntk);
+        for(int i = 2; i < n; i++){
+            tk = nums[i] + dp[i-2];
+            ntk = dp[i-1];
+            dp[i] = Math.max(tk, ntk);
+        }
+
+        return dp[n-1];
+
     }
 
     public int rob(int[] nums) {
@@ -29,6 +47,7 @@ class Solution {
             if(i != 0) temp1[k1++] = nums[i];
             if(i != n-1) temp2[k2++] = nums[i];
         }
+        
         ans1 = f(n-2, temp1, dp1);
         ans2 = f(n-2, temp2, dp2);
 
