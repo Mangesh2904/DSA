@@ -25,23 +25,41 @@ class Solution {
 
 // tabulation
 
-    public int rob(int[] nums) {
-        int n = nums.length, pk, npk;
-        int[] dp = new int[n];
-        Arrays.fill(dp, -1);
+    // public int rob(int[] nums) {
+    //     int n = nums.length, pk, npk;
+    //     int[] dp = new int[n];
+    //     Arrays.fill(dp, -1);
 
-        if(n == 1) return nums[0];
+    //     if(n == 1) return nums[0];
         
-        dp[0] = nums[0];
-        dp[1] = Math.max(nums[0], nums[1]);
+    //     dp[0] = nums[0];
+    //     dp[1] = Math.max(nums[0], nums[1]);
+
+    //     for(int i = 2; i < n; i++){
+    //         pk = nums[i] + dp[i - 2];
+    //         npk = dp[i-1];
+
+    //         dp[i] = Math.max(pk, npk);
+    //     }
+
+    //     return dp[n-1];
+    // }
+
+// space optimization
+    public int rob(int[] nums) {
+        int n = nums.length;
+        if(n == 1) return nums[0];
+        int pr = Math.max(nums[1], nums[0]), pr2 = nums[0], npk, pk, curr;
 
         for(int i = 2; i < n; i++){
-            pk = nums[i] + dp[i - 2];
-            npk = dp[i-1];
+            pk = nums[i] + pr2;
+            npk = pr;
+            curr = Math.max(pk, npk);
 
-            dp[i] = Math.max(pk, npk);
+            pr2 = pr;
+            pr = curr;
         }
 
-        return dp[n-1];
+        return pr;
     }
 }
