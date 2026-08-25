@@ -13,21 +13,43 @@ class Solution {
     // }
 
 
-    int f(int n, int[] nums, int[] dp){
-        n = n+1 ;// becoz we want no of element here not last idx
-        int tk, ntk;
+
+// // tabulation
+//     int f(int n, int[] nums, int[] dp){
+//         n = n+1 ;// becoz we want no of element here not last idx
+//         int tk, ntk;
+//         if(n == 1) return nums[0];
+//         dp[0] = nums[0];
+//         dp[1] = Math.max(nums[0], nums[1]);
+
+//         for(int i = 2; i < n; i++){
+//             tk = nums[i] + dp[i-2];
+//             ntk = dp[i-1];
+//             dp[i] = Math.max(tk, ntk);
+//         }
+
+//         return dp[n-1];
+
+//     }
+
+
+// space optimization
+
+    int f(int n, int[]nums){
         if(n == 1) return nums[0];
-        dp[0] = nums[0];
-        dp[1] = Math.max(nums[0], nums[1]);
+        int pr2 = nums[0], pr = Math.max(nums[0], nums[1]), tk, ntk, curr;
 
         for(int i = 2; i < n; i++){
-            tk = nums[i] + dp[i-2];
-            ntk = dp[i-1];
-            dp[i] = Math.max(tk, ntk);
+            tk = nums[i] + pr2;
+            ntk = pr;
+            curr = Math.max(tk, ntk);
+
+            pr2 = pr;
+            pr = curr;
+
         }
 
-        return dp[n-1];
-
+        return pr;
     }
 
     public int rob(int[] nums) {
@@ -48,8 +70,10 @@ class Solution {
             if(i != n-1) temp2[k2++] = nums[i];
         }
         
-        ans1 = f(n-2, temp1, dp1);
-        ans2 = f(n-2, temp2, dp2);
+        // ans1 = f(n-2, temp1, dp1);
+        // ans2 = f(n-2, temp2, dp2);
+        ans1 = f(n-1, temp1);
+        ans2 = f(n-1, temp2);
 
             
         return Math.max(ans1, ans2);
