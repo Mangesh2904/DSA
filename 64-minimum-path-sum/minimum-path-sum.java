@@ -16,11 +16,34 @@ class Solution {
         // return arr[n][m] + Math.min(memo(n - 1, m, arr, dp), memo(n, m - 1, arr, dp));
     }
 
+    int tabulation(int n, int m, int[][] arr, int[][] dp){
+
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                int u = Integer.MAX_VALUE, l = Integer.MAX_VALUE;
+
+                if( i == 0 && j == 0){
+                    dp[i][j] = arr[i][j];
+                    continue;
+                }  
+
+                if(i > 0) u = arr[i][j] + dp[i-1][j];
+                if(j > 0) l = arr[i][j] + dp[i][j-1];
+                
+                dp[i][j] = Math.min(u, l);
+            }
+        }
+
+        return dp[n-1][m-1];
+    }
+
     public int minPathSum(int[][] grid) {
         int n = grid.length, m = grid[0].length;
         int[][] dp = new int[n][m];
 
         for(int[] i : dp) Arrays.fill(i, -1);
-        return memo(n-1, m-1, grid, dp);
+
+        // return memo(n-1, m-1, grid, dp);
+        return tabulation(n, m, grid, dp);
     }
 }
