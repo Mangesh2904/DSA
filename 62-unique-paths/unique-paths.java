@@ -25,11 +25,34 @@ class Solution {
         return dp[m-1][n-1];
     }
 
+    int space(int m, int n){
+        int[] prev = new int[n];
+
+        for(int i = 0; i < m; i++){
+            int[] temp = new int[n];
+            for(int j = 0; j < n; j++){
+                int u = 0, l = 0;
+                if(i == 0 && j == 0) temp[j] = 1;
+                
+                else {
+                    if(i > 0) u = prev[j];
+                    if(j > 0) l = temp[j-1];
+                    temp[j] = u + l;
+                }
+            }
+
+            prev = temp;
+        }
+
+        return prev[n-1];
+    }
+
     public int uniquePaths(int m, int n) {
         int[][] dp = new int[m][n];
         for(int[] i : dp) Arrays.fill(i, -1);
         
-        return tabulation(m, n, dp);
+        return space(m, n);
+        // return tabulation(m, n, dp);
         // return grid(m-1, n-1, dp);
     }
 }
