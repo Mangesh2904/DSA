@@ -37,6 +37,30 @@ class Solution {
         return dp[n-1][m-1];
     }
 
+    int space(int n, int m, int[][] arr){
+        int[] prev = new int[m];
+
+        for(int i = 0; i < n; i++){
+            int[] temp = new int[m];
+
+            for(int j = 0; j < m; j++){
+                int u = Integer.MAX_VALUE, l = Integer.MAX_VALUE;
+                if(i == 0 && j == 0){
+                    temp[j] = arr[i][j];
+                    continue;
+                }
+
+                if(i > 0) u = arr[i][j] + prev[j];
+                if(j > 0) l = arr[i][j] + temp[j - 1];
+
+                temp[j] = Math.min(u, l);
+            }
+            prev = temp;
+        }
+
+        return prev[m-1];
+    }
+
     public int minPathSum(int[][] grid) {
         int n = grid.length, m = grid[0].length;
         int[][] dp = new int[n][m];
@@ -44,6 +68,7 @@ class Solution {
         for(int[] i : dp) Arrays.fill(i, -1);
 
         // return memo(n-1, m-1, grid, dp);
-        return tabulation(n, m, grid, dp);
+        // return tabulation(n, m, grid, dp);
+        return space(n, m, grid);
     }
 }
