@@ -30,6 +30,32 @@ class Solution {
         return dp[n-1][sum];
     }
 
+    boolean space(int n, int[] nums, int sum){
+        boolean[] prev = new boolean[sum + 1];
+        prev[0] = true;
+
+        if(nums[0] <= sum) prev[nums[0]] = true;
+
+        for(int i = 1; i < n; i++){
+            boolean[] curr = new boolean[sum + 1];
+
+            for(int j = 1; j <= sum; j++){
+
+                boolean ntk = prev[j];
+
+                boolean tk = false;
+
+                if(nums[i] < j) tk = prev[j - nums[i]];
+
+                curr[j] = tk || ntk;
+            }
+
+            prev = curr;
+        }
+
+        return prev[sum];
+    }
+
     public boolean canPartition(int[] nums) {
         int sum = Arrays.stream(nums).sum(), n = nums.length;
 
@@ -39,7 +65,8 @@ class Solution {
         boolean[][] dp = new boolean[n][sum + 1];
 
         // return memo(n - 1, nums, sum, dp);
-        return tabulation(n , nums, sum, dp);
+        // return tabulation(n , nums, sum, dp);
+        return space(n , nums, sum);
 
     }
 }
