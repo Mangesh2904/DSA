@@ -37,10 +37,10 @@ class Solution {
             int[] curr = new int[m];
             for(int j = 0; j < arr.get(i).size(); j++){
 
-                int d = arr.get(i).get(j) + prev[j];
-                int diag = arr.get(i).get(j) + prev[j+1];
+                int d =  prev[j];
+                int diag = prev[j+1];
 
-                curr[j] = Math.min(d, diag); 
+                curr[j] = arr.get(i).get(j) + Math.min(d, diag); 
             }
             prev = curr;
         }
