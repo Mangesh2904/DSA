@@ -38,6 +38,37 @@ class Solution {
         return ans;
     }
 
+    int space(int r, int c, int[][] arr){
+
+        int[] prev = new int[c];
+        for(int i = 0; i < c; i++) prev[i] = arr[0][i];
+
+        for(int i = 1; i < r; i++){
+            int[] curr = new int[c];
+
+            for(int j = 0; j < c; j++){
+                int u = prev[j];
+
+                int ld = Integer.MAX_VALUE;
+                int rd = Integer.MAX_VALUE;
+
+                if(j > 0) ld = prev[j - 1]; 
+                if(j < c - 1) rd = prev[j + 1]; 
+                
+                curr[j] = arr[i][j] + Math.min(u, Math.min(rd, ld));
+            }
+
+            prev = curr;
+        }
+
+        int ans = Integer.MAX_VALUE;
+        for (int i = 0; i < r; i++)
+            ans = Math.min(ans, prev[i]);
+        
+        return ans;
+    }
+
+
     public int minFallingPathSum(int[][] matrix) {
         int r = matrix.length;
         int[][] dp = new int[r][r];
@@ -50,6 +81,8 @@ class Solution {
         //     ans = Math.min(ans, memo(r - 1, r - i, matrix, dp));
         // return ans;
 
-        return tabulation(r, r, matrix, dp);
+        // return tabulation(r, r, matrix, dp);
+
+        return space(r, r, matrix);
     }
 }
