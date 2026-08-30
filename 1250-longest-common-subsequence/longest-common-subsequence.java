@@ -18,10 +18,6 @@ class Solution {
 
     int tabulation(String s, String t, int i, int j, int[][] dp){
 
-        // for(int l = 0; l <= i; l++) dp[l][0] = 0
-
-        // int id1 = 1, id2 = 1;
-
         for(int l1 = 1; l1 <= i; l1++){
             for(int l2 = 1; l2 <= j; l2++){
 
@@ -35,6 +31,27 @@ class Solution {
         return dp[i][j];  
     }
 
+    int space(String s, String t, int i, int j){
+        int prev[] = new int[j + 1];
+
+        for(int l1 = 1; l1 <= i; l1++){
+
+            int curr[] = new int[j + 1];
+
+            for(int l2 = 1; l2 <= j; l2++){
+                
+                if(s.charAt(l1 - 1) == t.charAt(l2 - 1)) curr[l2] = 1 + prev[l2 - 1];
+
+                else 
+                    curr[l2] = Math.max(prev[l2], curr[l2 - 1]);
+            }
+
+            prev = curr;
+        }
+
+        return prev[j];
+    }
+
     public int longestCommonSubsequence(String text1, String text2) {
         int i = text1.length();
         int j = text2.length();
@@ -42,6 +59,7 @@ class Solution {
         int[][] dp = new int[i + 1][j + 1];
 
         // return lcsMemo(text1, text2, i , j , dp);
-        return tabulation(text1, text2, i, j, dp);
+        // return tabulation(text1, text2, i, j, dp);
+        return space(text1, text2, i, j);
     }
 }
