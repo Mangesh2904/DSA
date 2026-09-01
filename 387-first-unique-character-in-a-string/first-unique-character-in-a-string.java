@@ -23,3 +23,5 @@ class Solution {
         return ans == n ? -1 : ans;
     }
 }
+
+// 2 for loop laga le freq array bana k
