@@ -1,19 +1,19 @@
 class Solution {
 
-    int memo(int n, int[] nums, int jum, int[] dp){
+    int memo(int n, int[] nums, int[] dp){
         
-        if(n >= nums.length - 1) return jum;
+        if(n >= nums.length - 1) return 0;
 
         if(dp[n] != 0) return dp[n];
-        int min = Integer.MAX_VALUE;
+        int min = Integer.MAX_VALUE/2;
 
         for(int i = 1; i <= nums[n]; i++)
-            min = Math.min(min, memo(n + i, nums, jum + 1, dp));
+            min = Math.min(min, 1 + memo(n + i, nums, dp));
 
         return dp[n] = min;
     }
 
-    int tabu(int n, int[] nums, int jum, int[] dp){
+    int tabu(int n, int[] nums, int[] dp){
 
         dp[n - 1] = 0;
 
@@ -37,7 +37,7 @@ class Solution {
         int n = nums.length, r = 0, l = 0, jum = 0;
         int[] dp = new int[n+1];
 
-        // return memo(0, nums, 0, dp);
-        return tabu(n, nums, 0, dp);
+        return memo(0, nums, dp);
+        // return tabu(n, nums, dp);
     }
 }
