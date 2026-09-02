@@ -1,5 +1,10 @@
 class Solution {
     public int firstUniqChar(String s) {
+        // return ans1(s);
+        return ans2(s);
+    }
+
+    int ans1(String s){
         int n = s.length(), ans = 0;
         HashMap<Character, Integer> mp = new HashMap<>();
 
@@ -20,8 +25,29 @@ class Solution {
             ans++;
 
         } 
-        return ans == n ? -1 : ans;
+        return ans == n ? -1 : ans;        
     }
-}
 
+
+
+    int ans2(String s){
+        int n = s.length(), ans = 0;
+        int[] freq = new int[26];
+        char a = '!';
+
+        for(char c : s.toCharArray()) freq[c - 'a']++;
+
+        for(char c : s.toCharArray()){
+            if(freq[c - 'a'] == 1){
+                a = c;
+                break;
+            } 
+
+        }
+
+        return a == '!' ? -1 : s.indexOf(a);
+    }
+
+}
+    
 // 2 for loop laga le freq array bana k
