@@ -33,11 +33,26 @@ class Solution {
         return dp[0];
     }
     
+
     public int jump(int[] nums) {
-        int n = nums.length, r = 0, l = 0, jum = 0;
+        int n = nums.length, r = 0, l = 0, jum = 0, maxR = 0;
         int[] dp = new int[n+1];
 
-        return memo(0, nums, dp);
+        // return memo(0, nums, dp);
         // return tabu(n, nums, dp);
+
+        while(r < n){
+            if(maxR >= n-1) break;
+
+            for(int i = l; i <= r; i++)
+                maxR = Math.max(maxR, i + nums[i]);
+
+            l = r + 1;
+            r = maxR;
+            jum++;
+        }
+
+        return jum;
+        
     }
 }
