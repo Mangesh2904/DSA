@@ -7,7 +7,7 @@ class Solution {
 
         List<int[]> lst = new ArrayList<>(); 
 
-        while(i < n && intervals[i][1] < newInterval[0]){
+        while(i < n && intervals[i][1] < s){
             int f1 = intervals[i][1];
             int s1 = intervals[i][0];
 
@@ -15,16 +15,16 @@ class Solution {
             i++;
         }
 
-        while(i < n && intervals[i][0] <= newInterval[1]){
+        while(i < n && intervals[i][0] <= f){
             int f1 = intervals[i][1];
             int s1 = intervals[i][0];
 
-            newInterval[0] = Math.min(newInterval[0], s1);
-            newInterval[1] = Math.max(newInterval[1], f1);    
+            s = Math.min(s, s1);
+            f = Math.max(f, f1);    
             i++;
         }
 
-        lst.add(new int[]{newInterval[0], newInterval[1]});
+        lst.add(new int[]{s, f});
 
         while(i < n){
             int f1 = intervals[i][1];
