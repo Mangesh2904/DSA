@@ -8,7 +8,7 @@ class Pair{
 
 class Solution {
     public int orangesRotting(int[][] grid) {
-        int t = 0, fresh = 0, count = 0, ans = 0;
+        int tm = 0, fresh = 0, ans = 0;
         int r = grid.length, c = grid[0].length;
         int[][] vis = new int[r][c];
         Queue<Pair> q = new LinkedList<>();
@@ -32,8 +32,8 @@ class Solution {
         while(!q.isEmpty()){
             int rw = q.peek().r;
             int cl = q.peek().c;
-            int tm = q.poll().t;
-            t = Math.max(t, tm);
+             tm = q.poll().t;
+            // t = Math.max(t, tm);
 
             for(int i = 0; i < 4; i++){
 
@@ -48,7 +48,7 @@ class Solution {
             }
         }
 
-        return ans == fresh ? t : -1;       
+        return ans == fresh ? tm : -1;       
         
     }
 }
