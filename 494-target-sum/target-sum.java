@@ -58,6 +58,36 @@ class Solution {
 
         return dp[n - 1][tar];
     }
+    
+    int space(int n, int[] nums, int tar){
+
+        int[] prev = new int[tar + 1];
+
+        prev[0] = 1;
+        if(nums[0] == 0) prev[0] = 2;
+        else if(nums[0] <= tar) prev[nums[0]] = 1;
+
+        for(int i = 1; i < n; i ++){
+
+            int[] curr = new int[tar + 1];
+            curr[0] = 1;
+
+            for(int j = 0; j <= tar; j++){
+
+                int tk = 0;
+
+                int ntk = prev[j];
+
+                if(nums[i] <= j) tk = prev[j - nums[i]];
+
+                curr[j] = tk + ntk;
+            }
+
+            prev = curr;
+        }
+
+        return prev[tar];
+    }
    
     public int findTargetSumWays(int[] nums, int target) {
         int n = nums.length;
@@ -74,7 +104,8 @@ class Solution {
           
         // return recc(n - 1, nums, target, dp);      
         // return memo(n - 1, nums, tar , dp);      
-        return tabu(n, nums, tar , dp);      
+        // return tabu(n, nums, tar , dp);      
+        return space(n, nums, tar);      
         
     }
 }
