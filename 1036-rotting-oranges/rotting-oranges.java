@@ -13,39 +13,42 @@ class Solution {
         int[][] vis = new int[r][c];
         Queue<Pair> q = new LinkedList<>();
 
-
         for(int i = 0; i < r; i++){
             for(int j = 0; j < c; j++){
+                
                 if(grid[i][j] == 2){
-                    vis[i][j] = 2;
-                    q.add(new Pair(i,j,0));
+                    q.offer(new Pair(i, j, 0));
+                    vis[i][j] = 1;
+                    
                 }
+
                 if(grid[i][j] == 1) fresh++;
             }
         }
 
-        int[] drow = {-1, 0, 1, 0};
-        int[] dcol = {0, 1, 0, -1};
+        int[] drow = {-1, 0, 0, 1};
+        int[] dcol = {0, 1, -1, 0};
 
         while(!q.isEmpty()){
-            int row = q.peek().r;
-            int col = q.peek().c;
-            t = q.peek().t;
-            ans = Math.max(ans, t);
-            q.remove();
+            int rw = q.peek().r;
+            int cl = q.peek().c;
+            int tm = q.poll().t;
+            t = Math.max(t, tm);
 
             for(int i = 0; i < 4; i++){
-                int new_r = row + drow[i];
-                int new_c = col + dcol[i];
-                if(new_r >=0 && new_c >= 0 && new_r < r && new_c < c && grid[new_r][new_c] == 1 && vis[new_r][new_c] != 2){
-                    vis[new_r][new_c] = 2;
-                    q.add(new Pair(new_r, new_c, t+1));
-                    count++;
+
+                int nR = rw + drow[i];
+                int nC = cl + dcol[i];
+
+                if(nR >= 0 && nR < r && nC >= 0 && nC < c && vis[nR][nC] != 1 && grid[nR][nC] == 1){
+                    vis[nR][nC] = 1;
+                    q.offer(new Pair(nR, nC, tm + 1));
+                    ans++;
                 }
             }
         }
 
-        if(count == fresh) return ans;
-        return -1;
+        return ans == fresh ? t : -1;       
+        
     }
 }
