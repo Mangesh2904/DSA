@@ -45,11 +45,11 @@ class Solution {
 
         for (int i = 0; i < n; i++) {
             if (vis[i] == 0) {
-                // vis[i] = 1;
-                // if (dfs(i, graph, vis) == false)
-                //     return false;
-                if (bfs(i, graph, vis) == false)
+                vis[i] = 1;
+                if (dfs(i, graph, vis) == false)
                     return false;
+                // if (bfs(i, graph, vis) == false)
+                //     return false;
             }
         }
 
