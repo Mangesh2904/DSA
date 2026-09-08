@@ -20,6 +20,9 @@ class Solution {
         int[] drow = {1, 0, 0, -1};
         int[] dcol = {0, 1, -1, 0};
         int iniC = image[sr][sc];
+        
+        if(iniC == color) return image; 
+        
         q.offer(new Pair(sr, sc));
         image[sr][sc] = color;
 
