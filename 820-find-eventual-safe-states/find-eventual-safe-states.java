@@ -22,6 +22,41 @@ class Solution {
         return false;
     }
 
+    List<Integer> bfs(int n, int[][] adj){
+        // revere the ind ie. iutdegree is ind
+        int ind[] = new int[n];
+        Queue<Integer> q = new LinkedList<>();
+        List<Integer> ans = new ArrayList<>();
+        List<List<Integer>> revAdj = new ArrayList<>();
+
+        for(int i = 0; i < n; i++) revAdj.add(new ArrayList<>());
+
+        for(int i = 0; i < n; i++){
+            ind[i] = adj[i].length;
+
+            for(int it : adj[i])
+                revAdj.get(it).add(i);
+        }
+
+        for(int i = 0; i < n; i++) if(ind[i] == 0) q.offer(i);
+
+        while(!q.isEmpty()){
+            int node = q.poll();
+            ans.add(node);
+
+            for(int it : revAdj.get(node)){
+                ind[it]--;
+                if(ind[it] == 0) q.offer(it);
+            }
+        }
+
+
+        Collections.sort(ans);
+
+        return ans;
+    }
+
+
     public List<Integer> eventualSafeNodes(int[][] graph) {
 
         int n = graph.length;
@@ -41,6 +76,8 @@ class Solution {
                 ans.add(i);
         }
 
-        return ans;
+        // return ans;
+
+        return bfs(n, graph);
     }
 }
