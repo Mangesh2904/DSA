@@ -31,6 +31,27 @@ class Solution {
         return dp[0][0];
     }
 
+    int space(int n, List<List<Integer>> mat){
+        int[] prev = new int[n];
+
+        for(int i = 0; i < n; i++) prev[i] = mat.get(n - 1).get(i);
+
+        for(int i = n - 2; i >= 0; i--){
+            int curr[] = new int[n];
+
+            for(int j = 0; j < mat.get(i).size(); j++){
+                int d = prev[j];
+                int rt = prev[j + 1];
+
+                curr[j] = Math.min(d, rt) + mat.get(i).get(j);
+            }
+
+            prev = curr;
+        }
+
+        return prev[0];
+    }
+
     public int minimumTotal(List<List<Integer>> triangle) {
 
         int n = triangle.size();
@@ -38,7 +59,8 @@ class Solution {
         int dp[][] = new int[n + 1][n + 1];
 
         // return memo(0, 0, n, triangle, dp);
-        return tabu(n, triangle, dp);
+        // return tabu(n, triangle, dp);
+        return space(n, triangle);
 
     }
 }
