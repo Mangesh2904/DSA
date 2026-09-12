@@ -23,18 +23,6 @@ class Solution {
 
     int tabu(int n, int[] prices, int[][][] dp){
         
-        for(int i = 0; i < 2; i++){
-            for(int j = 0; j < 3; j++){
-                dp[n][i][j] = 0;
-            }
-        }
-        
-        for(int i = 0; i < n; i++){
-
-            dp[i][0][2] = 0;
-            dp[i][1][2] = 0;
-
-        }   
 
         for(int i = n - 1; i >= 0; i--){
             for(int j = 0; j < 2; j++){
@@ -59,6 +47,37 @@ class Solution {
 
         return dp[0][0][0];
     }
+
+    int space(int n, int[] prices){
+        int[][] next = new int[2][3];
+
+        for(int i = n - 1; i >= 0; i--){
+            int curr[][] = new int[2][3];
+
+            for(int j = 0; j < 2; j++){
+
+                for(int k = 0; k < 2; k++){
+                    if(j == 0){
+                        int by = -prices[i] + next[1][k];
+                        int ntBy = next[0][k];
+
+                        curr[j][k] = Math.max(by, ntBy);
+                    }
+                    else {
+                        int sl = prices[i] + next[0][k + 1];
+                        int ntSl = next[1][k];
+
+                        curr[j][k] = Math.max(sl , ntSl);
+                    }
+                }
+            }
+            next = curr;
+        }
+
+        return next[0][0];
+
+
+    }
     
     public int maxProfit(int[] prices) {
         int n = prices.length;
@@ -66,6 +85,7 @@ class Solution {
         int dp[][][] = new int[n + 1][2][3];
         
         // return memo(0, 0, 0, n, prices, dp);
-        return tabu(n, prices, dp);
+        // return tabu(n, prices, dp);
+        return space(n, prices);
     }
 }
