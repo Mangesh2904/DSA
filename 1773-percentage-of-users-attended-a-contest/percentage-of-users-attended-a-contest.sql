@@ -6,7 +6,7 @@ round(
     count(r.contest_id) * 100 / (select count(*) from users) , 2
 ) as percentage
 
-from users u right join register r
+from users u join register r
 
 on u.user_id = r.user_id
 
