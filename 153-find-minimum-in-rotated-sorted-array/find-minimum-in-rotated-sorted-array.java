@@ -1,20 +1,21 @@
 class Solution {
 
-    int bs(int[] nums, int l, int h, int ans){
-        if(l > h) return ans;
+    int bs(int l, int h, int[] nums){
 
-        int m = (l+h)/ 2;
-        if(nums[m] < nums[h]){
-            ans = Math.min(ans, nums[m]);
-            return bs(nums, l, m-1, ans);
-        }
-        else{
-            ans = Math.min(ans, nums[l]);
-            return bs(nums, m+1, h, ans);
-        }
+        if(l == h) return l;
+
+        int m = (l + h) / 2;
+
+        if(nums[m] <= nums[h]) return bs(l, m, nums);
+
+        return bs(m + 1, h, nums);
     }
 
     public int findMin(int[] nums) {
-        return bs(nums, 0, nums.length - 1, Integer.MAX_VALUE);
+        int l = 0, h = nums.length - 1;
+
+        int idx = bs(l, h, nums);
+
+        return nums[idx];
     }
 }
