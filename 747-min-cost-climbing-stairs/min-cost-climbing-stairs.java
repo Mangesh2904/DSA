@@ -52,8 +52,8 @@ class Solution {
 
         // return Math.min(a1, a2);
 
-        // return tabu(n, cost, dp);
-        return space(n, cost);
+        return tabu(n, cost, dp);
+        // return space(n, cost);
 
     }
 }
