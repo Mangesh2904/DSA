@@ -10,4 +10,4 @@ sum(case when state = "approved" then amount else 0 end) as approved_total_amoun
 
 from transactions
 
-group by year(trans_date), month(trans_date), country
+group by  month, country
