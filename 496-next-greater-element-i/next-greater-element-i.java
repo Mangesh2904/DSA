@@ -10,11 +10,12 @@ class Solution {
         st.push(nums2[n - 1]);
 
         mp.put(nums2[n - 1], -1);
-        n--;
 
-        while(n >= 0){
+        for(int i = n - 2; i >= 0; i--){
 
-            int v = nums2[n];
+            int v = nums2[i];
+            
+            while(!st.isEmpty() && v >= st.peek()) st.pop();
 
             if(st.isEmpty()){
                 
@@ -22,23 +23,13 @@ class Solution {
 
             } 
 
-            else if(v < st.peek()){
+            else {
                 
                 mp.put(v, st.peek());
                 
             }
 
-            else{
-
-                while(!st.isEmpty() && v >= st.peek()) st.pop();
-
-                if(st.isEmpty()) mp.put(v, -1);
-
-                else mp.put(v, st.peek());
-
-            }
             st.push(v);
-            n--;
         }
 
         int n2 = nums1.length;
