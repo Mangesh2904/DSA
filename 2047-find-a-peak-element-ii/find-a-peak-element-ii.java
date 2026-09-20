@@ -20,7 +20,7 @@ class Solution {
 
         if(mat[m][mx] < mat[m + 1][mx]) return bs(m + 1, r, mat);
 
-        return bs(m - 1, r, mat);
+        return bs(l, m - 1, mat);
     }
     
     public int[] findPeakGrid(int[][] mat) {
